@@ -18,9 +18,12 @@ bool Element::isChecked() const {
     return checked;
 }
 
-void Element::setChecked(bool checked) {
-    Element::checked = checked;
-    //setDateTime(now());
+void Element::toggle() {
+    checked = !checked;
+    if(checked)
+        setDateTime("Adesso");
+    else
+        setDateTime("");
 }
 
 const string &Element::getDateTime() const {

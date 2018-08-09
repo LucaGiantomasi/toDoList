@@ -10,6 +10,8 @@
 using namespace std;
 class Element {
 public:
+    Element(){}
+
     explicit Element(const string &name);
 
     const string &getName() const;
@@ -18,7 +20,7 @@ public:
 
     bool isChecked() const;
 
-    void setChecked(bool checked);
+    void toggle();
 
     const string &getDateTime() const;
 
