@@ -12,7 +12,7 @@
 using namespace std;
 class Element {
 public:
-    Element(){}
+    Element() = default;
 
     explicit Element(const string &name);
 

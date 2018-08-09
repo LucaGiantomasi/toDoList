@@ -4,16 +4,6 @@
 
 #include "ListElement.h"
 
-ListElement::ListElement() : completed(false) {}
-
-bool ListElement::isCompleted() const {
-    return completed;
-}
-
-void ListElement::setCompleted(bool completed) {
-    ListElement::completed = completed;
-}
-
 void ListElement::addElement(const Element &el) {
     elements.push_back(el);
 }
@@ -26,9 +16,15 @@ const list<Element> &ListElement::getElements() const {
     return elements;
 }
 
-Element& ListElement::find(string name) const {
-    for (const auto &el : elements) {
+list<Element>::iterator ListElement::find(string name) {
+    /*for (const auto &el : elements) {
         if(el.getName() == name)
            return const_cast<Element&>(el);
+    }*/
+    auto it = elements.begin();
+    for(it; it != elements.end(); it++){
+        if(it->getName() == name)
+            break;
     }
+    return it;
 }

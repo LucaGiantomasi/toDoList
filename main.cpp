@@ -8,6 +8,7 @@ int main() {
     ListElement l;
     Element e;
     string nome, newName;
+    list<Element>::iterator el;
     int scelta = -1;
     do{
         cout << "0. Esci\n"
@@ -38,21 +39,36 @@ int main() {
             case 3:
                 cout << "Scrivi il nome dell'elemento da eliminare" << endl;
                 getline(cin, nome);
-                l.removeElement(l.find(nome));
+                el = l.find(nome);
+                if(el != l.getElements().end()){
+                    l.removeElement(*el);
+                    cout << "Elemento eliminato" << endl;
+                }
+                else
+                    cout << "Elemento non trovato" << endl;
                 break;
             //Completa un elemento
             case 4:
                 cout << "Scrivi il nome dell'elemento da completare/decompletare" << endl;
                 getline(cin, nome);
-                l.find(nome).toggle();
+                el = l.find(nome);
+                if(el != l.getElements().end())
+                    el->toggle();
+                else
+                    cout << "Elemento non trovato" << endl;
                 break;
             //Modifica un elemento
             case 5:
                 cout << "Scrivi il nome dell'elemento da modificare" << endl;
                 getline(cin, nome);
-                cout << "Scrivi il nuovo nome dell'elemento" << endl;
-                getline(cin, newName);
-                l.find(nome).setName(newName);
+                el = l.find(nome);
+                if(el != l.getElements().end()){
+                    cout << "Scrivi il nuovo nome dell'elemento" << endl;
+                    getline(cin, newName);
+                    el->setName(newName);
+                }
+                else
+                    cout << "Elemento non trovato" << endl;
                 break;
             //Scrivi su file
             case 6:

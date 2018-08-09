@@ -5,7 +5,8 @@
 #ifndef TODOLIST_IOLIST_H
 #define TODOLIST_IOLIST_H
 
-#include <iostream>
+#include <cstring>
+#include <vector>
 #include <fstream>
 #include "ListElement.h"
 

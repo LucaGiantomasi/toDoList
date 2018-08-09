@@ -11,11 +11,6 @@
 using namespace std;
 class ListElement {
 public:
-    ListElement();
-
-    bool isCompleted() const;
-
-    void setCompleted(bool completed);
 
     void addElement(const Element& el);
 
@@ -23,11 +18,10 @@ public:
 
     const list<Element> &getElements() const;
 
-    Element& find(string name) const;
+    list<Element>::iterator find(string name);
 
 private:
     list<Element> elements;
-    bool completed; //true se tutti i suoi elementi sono checked
 };
 
 

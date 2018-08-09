@@ -21,6 +21,7 @@ bool Element::isChecked() const {
 void Element::toggle() {
     setChecked(!checked);
     if(checked){
+        //Prende la data e l'ora attuale locale e la trasforma in string
         auto t = time(nullptr);
         auto tm = *localtime(&t);
         ostringstream oss;
