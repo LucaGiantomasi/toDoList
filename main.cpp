@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Element.h"
 #include "ListElement.h"
+#include "IOList.h"
 
 using namespace std;
 int main() {
@@ -14,7 +15,9 @@ int main() {
                 "2. Aggiungi un elemento alla lista\n"
                 "3. Elimina un elemento della lista\n"
                 "4. Completa/Decompleta un elemento\n"
-                "5. Modifica il nome di un elemento" << endl;
+                "5. Modifica il nome di un elemento\n"
+                "6. Salva la lista su un file\n"
+                "7. Carica la lista da un file" << endl;
         cin >> scelta;
         cin.ignore();
         switch (scelta){
@@ -43,13 +46,25 @@ int main() {
                 getline(cin, nome);
                 l.find(nome).toggle();
                 break;
-             //Modifica un elemento
+            //Modifica un elemento
             case 5:
                 cout << "Scrivi il nome dell'elemento da modificare" << endl;
                 getline(cin, nome);
                 cout << "Scrivi il nuovo nome dell'elemento" << endl;
                 getline(cin, newName);
                 l.find(nome).setName(newName);
+                break;
+            //Scrivi su file
+            case 6:
+                cout << "Inserire nome del file su cui scrivere" << endl;
+                cin >> nome;
+                IOList::writeToFile(l, nome);
+                break;
+            //Leggi da file
+            case 7:
+                cout << "Inserire nome del file da cui caricare la lista" << endl;
+                cin >> nome;
+                l = IOList::loadFromFile(nome);
                 break;
             default:
                 break;

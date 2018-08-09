@@ -20,9 +20,13 @@ public:
 
     bool isChecked() const;
 
+    void setChecked(bool checked);
+
     void toggle();
 
     const string &getDateTime() const;
+
+    void setDateTime(const string &dateTime);
 
     const string toString() const;
 
@@ -34,8 +38,6 @@ private:
     string name;
     bool checked;
     string dateTime; //Data e ora di quando è stato completato l'elemento
-
-    void setDateTime(const string &dateTime);
 };
 
 

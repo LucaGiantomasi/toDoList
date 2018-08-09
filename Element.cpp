@@ -19,7 +19,7 @@ bool Element::isChecked() const {
 }
 
 void Element::toggle() {
-    checked = !checked;
+    setChecked(!checked);
     if(checked)
         setDateTime("Adesso");
     else
@@ -35,7 +35,7 @@ void Element::setDateTime(const string &dateTime) {
 }
 
 const string Element::toString() const {
-    return name + (checked?" TRUE ":" ") + dateTime;
+    return name + "," + (checked?"TRUE,":"") + dateTime;
 }
 
 bool Element::operator==(const Element &rhs) const {
@@ -44,4 +44,8 @@ bool Element::operator==(const Element &rhs) const {
 
 bool Element::operator!=(const Element &rhs) const {
     return !(rhs == *this);
+}
+
+void Element::setChecked(bool checked) {
+    Element::checked = checked;
 }
