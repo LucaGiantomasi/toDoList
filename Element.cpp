@@ -20,8 +20,14 @@ bool Element::isChecked() const {
 
 void Element::toggle() {
     setChecked(!checked);
-    if(checked)
-        setDateTime("Adesso");
+    if(checked){
+        auto t = time(nullptr);
+        auto tm = *localtime(&t);
+        ostringstream oss;
+        oss << std::put_time(&tm, "%d/%m/%Y %H:%M");
+        string str = oss.str();
+        setDateTime(str);
+    }
     else
         setDateTime("");
 }
