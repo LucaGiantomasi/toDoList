@@ -42,7 +42,7 @@ void Element::setDateTime(const string &dateTime) {
 }
 
 const string Element::toString() const {
-    return name + "," + (checked?"TRUE,":"") + dateTime;
+    return name + "|" + (checked?"TRUE|" + dateTime :"");
 }
 
 bool Element::operator==(const Element &rhs) const {

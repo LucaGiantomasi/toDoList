@@ -6,19 +6,20 @@
 
 ListElement IOList::loadFromFile(string fileName) {
     ifstream inputFile("../assets/" + fileName + ".txt");
-    string str;
-    Element e;
     ListElement list;
-    int i = 0;
-    vector<char*> pch;
     if(inputFile.is_open()){
+        string str;
+        Element e;
+        int i;
+        vector<char*> pch;
         while(getline(inputFile, str)){
             pch.clear();
-            pch.push_back(strtok (const_cast<char*>(str.c_str()),","));
+            i = 0;
+            pch.push_back(strtok (const_cast<char*>(str.c_str()),"|"));
             while (pch[i] != nullptr)
             {
                 i++;
-                pch.push_back(strtok (nullptr, ","));
+                pch.push_back(strtok (nullptr, "|"));
             }
             e = Element(pch[0]);
             if(pch.size() > 1){
@@ -28,6 +29,8 @@ ListElement IOList::loadFromFile(string fileName) {
             list.addElement(e);
         }
     }
+    else
+        cerr << "Impossibile aprire il file" << endl;
     return list;
 }
 
