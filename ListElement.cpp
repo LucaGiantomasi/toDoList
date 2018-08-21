@@ -17,10 +17,6 @@ const list<Element> &ListElement::getElements() const {
 }
 
 list<Element>::iterator ListElement::find(string name) {
-    /*for (const auto &el : elements) {
-        if(el.getName() == name)
-           return const_cast<Element&>(el);
-    }*/
     auto it = elements.begin();
     for(it; it != elements.end(); it++){
         if(it->getName() == name)

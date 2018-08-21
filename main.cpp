@@ -24,8 +24,8 @@ int main() {
         switch (scelta){
             //Leggi la lista
             case 1:
-                for(const auto& el : l.getElements())
-                    cout << el.toString() << endl;
+                for(const auto& elem : l.getElements())
+                    cout << elem.toString() << endl;
                 break;
             //Aggiungi un elemento
             case 2:

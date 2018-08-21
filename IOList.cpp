@@ -10,16 +10,13 @@ ListElement IOList::loadFromFile(string fileName) {
     if(inputFile.is_open()){
         string str;
         Element e;
-        int i;
         vector<char*> pch;
         while(getline(inputFile, str)){
             pch.clear();
-            i = 0;
             pch.push_back(strtok (const_cast<char*>(str.c_str()),"|"));
-            while (pch[i] != nullptr)
+            while (auto test = strtok (nullptr, "|"))
             {
-                i++;
-                pch.push_back(strtok (nullptr, "|"));
+                pch.push_back(test);
             }
             e = Element(pch[0]);
             if(pch.size() > 1){
