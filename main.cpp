@@ -65,7 +65,11 @@ int main() {
                 if(el != l.getElements().end()){
                     cout << "Scrivi il nuovo nome dell'elemento" << endl;
                     getline(cin, newName);
-                    el->setName(newName);
+                    auto elem = l.find(newName);
+                    if(elem == l.getElements().end())
+                        el->setName(newName);
+                    else
+                        cout << "Il nuovo nome scelto è già esistente" << endl;
                 }
                 else
                     cout << "Elemento non trovato" << endl;

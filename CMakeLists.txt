@@ -3,4 +3,10 @@ project(toDoList)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(toDoList main.cpp Element.cpp Element.h ListElement.cpp ListElement.h IOList.cpp IOList.h)
+add_subdirectory(test)
+
+set(SOURCE_FILES Element.cpp Element.h ListElement.cpp ListElement.h IOList.cpp IOList.h)
+
+add_executable(my_executable main.cpp)
+add_library(core ${SOURCE_FILES})
+target_link_libraries(my_executable core)
