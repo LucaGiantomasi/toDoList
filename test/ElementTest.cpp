@@ -8,7 +8,7 @@
 TEST(ElementTest, ConstuctorTest){
     Element e("Testing");
     EXPECT_EQ(e.getName(), "Testing");
-    EXPECT_EQ(e.isChecked(), false);
+    EXPECT_FALSE(e.isChecked());
     EXPECT_EQ(e.getDateTime(), "");
 }
 

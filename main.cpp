@@ -1,72 +1,91 @@
 #include <iostream>
+#include <cctype>
 #include "Element.h"
 #include "ListElement.h"
-#include "IOList.h"
 
 using namespace std;
 int main() {
-    ListElement l;
-    Element e;
-    string nome, newName;
+    ListElement lista;
+    string nome, currentList;
     list<Element>::iterator el;
     int scelta = -1;
     do{
         cout << "0. Esci\n"
-                "1. Leggi la lista\n"
-                "2. Aggiungi un elemento alla lista\n"
-                "3. Elimina un elemento della lista\n"
-                "4. Completa/Decompleta un elemento\n"
-                "5. Modifica il nome di un elemento\n"
-                "6. Salva la lista su un file\n"
-                "7. Carica la lista da un file" << endl;
+                "1. Aggiungi nuova lista\n"
+                "2. Cambia lista\n"
+                "3. Elimina questa lista\n"
+                "4. Leggi la lista\n"
+                "5. Aggiungi un elemento alla lista\n"
+                "6. Elimina un elemento della lista\n"
+                "7. Completa/Decompleta un elemento\n"
+                "8. Modifica il nome di un elemento\n"
+                "9. Salva la lista su un file\n"
+                "10. Carica la lista da un file\n"
+                "Lista attuale: " + (lista.getCurrentList().empty()?"Nessuna" : lista.getCurrentList()) << endl;
         cin >> scelta;
         cin.ignore();
         switch (scelta){
-            //Leggi la lista
             case 1:
-                for(const auto& elem : l.getElements())
-                    cout << elem.toString() << endl;
+                cout << "Inserire il nome della nuova lista" << endl;
+                getline(cin, currentList);
+                if(!currentList.empty())
+                    lista.addList(currentList);
                 break;
-            //Aggiungi un elemento
             case 2:
-                cout << "Scrivi il nome dell'elemento da aggiungere" << endl;
-                getline(cin, nome);
-                e = Element(nome);
-                l.addElement(e);
-                cout << "Elemento aggiunto" << endl;
+                cout << "Inserire il nome della lista" << endl;
+                getline(cin, currentList);
+                lista.setCurrentList(currentList);
                 break;
-            //Elimina un elemento
             case 3:
+                if(!lista.getCurrentList().empty())
+                    lista.removeList();
+                else
+                    cout << "Nessuna lista selezionata" << endl;
+                break;
+            case 4:
+                try{
+                    for(const auto& elem : lista.getElements())
+                        cout << elem.toString() << endl;
+                }catch(std::out_of_range& ex){}
+                break;
+            case 5:
+                if( !lista.getCurrentList().empty()) {
+                    cout << "Scrivi il nome dell'elemento da aggiungere" << endl;
+                    getline(cin, nome);
+                    lista.addElement(Element(nome));
+                }
+                else
+                    cout << "Nessuna lista selezionata" << endl;
+                break;
+            case 6:
                 cout << "Scrivi il nome dell'elemento da eliminare" << endl;
                 getline(cin, nome);
-                el = l.find(nome);
-                if(el != l.getElements().end()){
-                    l.removeElement(*el);
-                    cout << "Elemento eliminato" << endl;
+                el = lista.find(nome);
+                if(el != lista.getElements().end()){
+                    lista.removeElement(*el);
                 }
                 else
                     cout << "Elemento non trovato" << endl;
                 break;
-            //Completa un elemento
-            case 4:
+            case 7:
                 cout << "Scrivi il nome dell'elemento da completare/decompletare" << endl;
                 getline(cin, nome);
-                el = l.find(nome);
-                if(el != l.getElements().end())
+                el = lista.find(nome);
+                if(el != lista.getElements().end())
                     el->toggle();
                 else
                     cout << "Elemento non trovato" << endl;
                 break;
-            //Modifica un elemento
-            case 5:
+            case 8:
                 cout << "Scrivi il nome dell'elemento da modificare" << endl;
                 getline(cin, nome);
-                el = l.find(nome);
-                if(el != l.getElements().end()){
+                el = lista.find(nome);
+                if(el != lista.getElements().end()){
+                    string newName;
                     cout << "Scrivi il nuovo nome dell'elemento" << endl;
                     getline(cin, newName);
-                    auto elem = l.find(newName);
-                    if(elem == l.getElements().end())
+                    auto elem = lista.find(newName);
+                    if(elem == lista.getElements().end())
                         el->setName(newName);
                     else
                         cout << "Il nuovo nome scelto è già esistente" << endl;
@@ -74,17 +93,16 @@ int main() {
                 else
                     cout << "Elemento non trovato" << endl;
                 break;
-            //Scrivi su file
-            case 6:
-                cout << "Inserire nome del file su cui scrivere" << endl;
-                cin >> nome;
-                IOList::writeToFile(l, nome);
+            case 9:
+                if(!lista.getCurrentList().empty())
+                    lista.writeToFile();
+                else
+                    cout << "Nessuna lista selezionata" << endl;
                 break;
-            //Leggi da file
-            case 7:
+            case 10:
                 cout << "Inserire nome del file da cui caricare la lista" << endl;
                 cin >> nome;
-                l = IOList::loadFromFile(nome);
+                lista.loadFromFile(nome);
                 break;
             default:
                 break;

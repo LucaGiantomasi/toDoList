@@ -5,7 +5,11 @@
 #ifndef TODOLIST_LISTELEMENT_H
 #define TODOLIST_LISTELEMENT_H
 
+#include <map>
 #include <list>
+#include <cstring>
+#include <vector>
+#include <fstream>
 #include "Element.h"
 
 using namespace std;
@@ -20,8 +24,21 @@ public:
 
     list<Element>::iterator find(string name);
 
+    const string &getCurrentList() const;
+
+    void setCurrentList(const string &currentList);
+
+    void loadFromFile(string fileName);
+
+    void writeToFile();
+
+    void addList(string listName);
+
+    void removeList();
+
 private:
-    list<Element> elements;
+    map<string, list<Element>> elements;
+    string currentList;
 };
 
 
