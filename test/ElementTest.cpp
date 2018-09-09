@@ -21,7 +21,7 @@ TEST(ElementTest, NameTest){
 TEST(ElementTest, CheckedTest){
     Element e;
     e.setChecked(true);
-    EXPECT_EQ(e.isChecked(), true);
+    EXPECT_TRUE(e.isChecked());
 }
 
 TEST(ElementTest, DateTimeTest){
@@ -33,15 +33,19 @@ TEST(ElementTest, DateTimeTest){
 TEST(ElementTest, ToggleTest){
     Element e("Testing");
     e.toggle();
-    EXPECT_EQ(e.isChecked(), true);
+    EXPECT_TRUE(e.isChecked());
+    EXPECT_NE(e.getDateTime(), "");
+    e.toggle();
+    EXPECT_FALSE(e.isChecked());
+    EXPECT_EQ(e.getDateTime(), "");
 }
 
 TEST(ElementTest, OperatorEqualTest){
     Element e1("Giorgio");
     Element e2("Giorgio");
-    EXPECT_EQ(e1 == e2, true);
+    EXPECT_TRUE(e1 == e2);
     e2.toggle();
-    EXPECT_EQ(e1 == e2, true);
+    EXPECT_TRUE(e1 == e2);
     e2.setName("Paolo");
-    EXPECT_EQ(e1 == e2, false);
+    EXPECT_FALSE(e1 == e2);
 }

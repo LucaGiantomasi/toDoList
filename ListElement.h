@@ -16,6 +16,14 @@ using namespace std;
 class ListElement {
 public:
 
+    void addList(string listName);
+
+    void removeList();
+
+    const string &getCurrentListName() const;
+
+    void changeList(const string &currentList);
+
     void addElement(const Element& el);
 
     void removeElement(const Element& el);
@@ -24,17 +32,11 @@ public:
 
     list<Element>::iterator find(string name);
 
-    const string &getCurrentList() const;
-
-    void setCurrentList(const string &currentList);
-
     void loadFromFile(string fileName);
 
     void writeToFile();
 
-    void addList(string listName);
 
-    void removeList();
 
 private:
     map<string, list<Element>> elements;

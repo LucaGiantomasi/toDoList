@@ -4,6 +4,25 @@
 
 #include "ListElement.h"
 
+void ListElement::addList(string listName) {
+    elements[listName] = list<Element>();
+    currentList = listName;
+}
+
+void ListElement::removeList() {
+    elements.erase(currentList);
+    currentList = "";
+}
+
+const string &ListElement::getCurrentListName() const {
+    return currentList;
+}
+
+void ListElement::changeList(const string &currentList) {
+    if (elements.find(currentList) != elements.end())
+        ListElement::currentList = currentList;
+}
+
 void ListElement::addElement(const Element &el) {
     elements.at(currentList).push_back(el);
 }
@@ -23,15 +42,6 @@ list<Element>::iterator ListElement::find(string name) {
             break;
     }
     return it;
-}
-
-const string &ListElement::getCurrentList() const {
-    return currentList;
-}
-
-void ListElement::setCurrentList(const string &currentList) {
-    if (elements.find(currentList) != elements.end())
-        ListElement::currentList = currentList;
 }
 
 void ListElement::loadFromFile(string fileName) {
@@ -69,14 +79,4 @@ void ListElement::writeToFile() {
     }
     else
         cerr << "Impossibile aprire il file" << endl;
-}
-
-void ListElement::addList(string listName) {
-    elements[listName] = list<Element>();
-    currentList = listName;
-}
-
-void ListElement::removeList() {
-    elements.erase(currentList);
-    currentList = "";
 }

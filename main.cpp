@@ -21,7 +21,7 @@ int main() {
                 "8. Modifica il nome di un elemento\n"
                 "9. Salva la lista su un file\n"
                 "10. Carica la lista da un file\n"
-                "Lista attuale: " + (lista.getCurrentList().empty()?"Nessuna" : lista.getCurrentList()) << endl;
+                "Lista attuale: " + (lista.getCurrentListName().empty()?"Nessuna" : lista.getCurrentListName()) << endl;
         cin >> scelta;
         cin.ignore();
         switch (scelta){
@@ -34,10 +34,10 @@ int main() {
             case 2:
                 cout << "Inserire il nome della lista" << endl;
                 getline(cin, currentList);
-                lista.setCurrentList(currentList);
+                lista.changeList(currentList);
                 break;
             case 3:
-                if(!lista.getCurrentList().empty())
+                if(!lista.getCurrentListName().empty())
                     lista.removeList();
                 else
                     cout << "Nessuna lista selezionata" << endl;
@@ -49,7 +49,7 @@ int main() {
                 }catch(std::out_of_range& ex){}
                 break;
             case 5:
-                if( !lista.getCurrentList().empty()) {
+                if( !lista.getCurrentListName().empty()) {
                     cout << "Scrivi il nome dell'elemento da aggiungere" << endl;
                     getline(cin, nome);
                     lista.addElement(Element(nome));
@@ -94,7 +94,7 @@ int main() {
                     cout << "Elemento non trovato" << endl;
                 break;
             case 9:
-                if(!lista.getCurrentList().empty())
+                if(!lista.getCurrentListName().empty())
                     lista.writeToFile();
                 else
                     cout << "Nessuna lista selezionata" << endl;
