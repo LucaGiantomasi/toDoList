@@ -10,17 +10,18 @@
 #include <cstring>
 #include <vector>
 #include <fstream>
+#include <algorithm>
 #include "Element.h"
 
 using namespace std;
 class ListElement {
 public:
 
-    void addList(string listName);
+    void addList(const string& listName);
 
     void removeList();
 
-    const string &getCurrentListName() const;
+    const string& getCurrentListName() const;
 
     void changeList(const string &currentList);
 
@@ -28,7 +29,7 @@ public:
 
     void removeElement(const Element& el);
 
-    const list<Element> &getElements() const;
+    const list<Element>& getElements() const;
 
     list<Element>::iterator find(string name);
 
@@ -36,10 +37,8 @@ public:
 
     void writeToFile();
 
-
-
 private:
-    map<string, list<Element>> elements;
+    map<string, list<Element>> lists;
     string currentList;
 };
 

@@ -35,6 +35,8 @@ int main() {
                 cout << "Inserire il nome della lista" << endl;
                 getline(cin, currentList);
                 lista.changeList(currentList);
+                if(lista.getCurrentListName() != currentList)
+                    cout << "Lista inesistente" << endl;
                 break;
             case 3:
                 if(!lista.getCurrentListName().empty())

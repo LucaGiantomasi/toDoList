@@ -4,49 +4,44 @@
 
 #include "ListElement.h"
 
-void ListElement::addList(string listName) {
-    elements[listName] = list<Element>();
+void ListElement::addList(const string& listName) {
+    lists[listName] = list<Element>();
     currentList = listName;
 }
 
 void ListElement::removeList() {
-    elements.erase(currentList);
+    lists.erase(currentList);
     currentList = "";
 }
 
-const string &ListElement::getCurrentListName() const {
+const string& ListElement::getCurrentListName() const {
     return currentList;
 }
 
 void ListElement::changeList(const string &currentList) {
-    if (elements.find(currentList) != elements.end())
+    if (lists.find(currentList) != lists.end())
         ListElement::currentList = currentList;
 }
 
 void ListElement::addElement(const Element &el) {
-    elements.at(currentList).push_back(el);
+    lists.at(currentList).push_back(el);
 }
 
 void ListElement::removeElement(const Element &el) {
-    elements.at(currentList).remove(el);
+    lists.at(currentList).remove(el);
 }
 
-const list<Element> &ListElement::getElements() const {
-    return elements.at(currentList);
+const list<Element>& ListElement::getElements() const {
+    return lists.at(currentList);
 }
 
 list<Element>::iterator ListElement::find(string name) {
-    auto it = elements[currentList].begin();
-    for(it; it != elements[currentList].end(); it++){
-        if(it->getName() == name)
-            break;
-    }
-    return it;
+    return std::find(lists[currentList].begin(), lists[currentList].end(), Element(name));
 }
 
 void ListElement::loadFromFile(string fileName) {
     ifstream inputFile("../assets/" + fileName + ".txt");
-    if(inputFile.is_open()){
+    if(inputFile.good()){
         string str;
         Element e;
         vector<char*> pch;
@@ -71,9 +66,11 @@ void ListElement::loadFromFile(string fileName) {
 }
 
 void ListElement::writeToFile() {
+    if(lists.at(currentList).empty())
+        return;
     ofstream outputFile("../assets/" + currentList + ".txt");
     if(outputFile.is_open()){
-        for(const auto& el : elements[currentList]){
+        for(const auto& el : lists[currentList]){
             outputFile << el.toString() << endl;
         }
     }
