@@ -48,7 +48,9 @@ int main() {
                 try{
                     for(const auto& elem : lista.getElements())
                         cout << elem.toString() << endl;
-                }catch(std::out_of_range& ex){}
+                }catch(std::out_of_range& ex){
+                    cout << "Nessuna lista selezionata" << endl;
+                }
                 break;
             case 5:
                 if( !lista.getCurrentListName().empty()) {
@@ -60,40 +62,50 @@ int main() {
                     cout << "Nessuna lista selezionata" << endl;
                 break;
             case 6:
-                cout << "Scrivi il nome dell'elemento da eliminare" << endl;
-                getline(cin, nome);
-                el = lista.find(nome);
-                if(el != lista.getElements().end()){
-                    lista.removeElement(*el);
+                if(!lista.getCurrentListName().empty()) {
+                    cout << "Scrivi il nome dell'elemento da eliminare" << endl;
+                    getline(cin, nome);
+                    el = lista.find(nome);
+                    if (el != lista.getElements().end()) {
+                        lista.removeElement(*el);
+                    } else
+                        cout << "Elemento non trovato" << endl;
                 }
                 else
-                    cout << "Elemento non trovato" << endl;
+                    cout << "Nessuna lista selezionata" << endl;
                 break;
             case 7:
-                cout << "Scrivi il nome dell'elemento da completare/decompletare" << endl;
-                getline(cin, nome);
-                el = lista.find(nome);
-                if(el != lista.getElements().end())
-                    el->toggle();
-                else
-                    cout << "Elemento non trovato" << endl;
-                break;
-            case 8:
-                cout << "Scrivi il nome dell'elemento da modificare" << endl;
-                getline(cin, nome);
-                el = lista.find(nome);
-                if(el != lista.getElements().end()){
-                    string newName;
-                    cout << "Scrivi il nuovo nome dell'elemento" << endl;
-                    getline(cin, newName);
-                    auto elem = lista.find(newName);
-                    if(elem == lista.getElements().end())
-                        el->setName(newName);
+                if(!lista.getCurrentListName().empty()) {
+                    cout << "Scrivi il nome dell'elemento da completare/decompletare" << endl;
+                    getline(cin, nome);
+                    el = lista.find(nome);
+                    if (el != lista.getElements().end())
+                        el->toggle();
                     else
-                        cout << "Il nuovo nome scelto è già esistente" << endl;
+                        cout << "Elemento non trovato" << endl;
                 }
                 else
-                    cout << "Elemento non trovato" << endl;
+                    cout << "Nessuna lista selezionata" << endl;
+                break;
+            case 8:
+                if(!lista.getCurrentListName().empty()) {
+                    cout << "Scrivi il nome dell'elemento da modificare" << endl;
+                    getline(cin, nome);
+                    el = lista.find(nome);
+                    if (el != lista.getElements().end()) {
+                        string newName;
+                        cout << "Scrivi il nuovo nome dell'elemento" << endl;
+                        getline(cin, newName);
+                        auto elem = lista.find(newName);
+                        if (elem == lista.getElements().end())
+                            el->setName(newName);
+                        else
+                            cout << "Il nuovo nome scelto è già esistente" << endl;
+                    } else
+                        cout << "Elemento non trovato" << endl;
+                }
+                else
+                    cout << "Nessuna lista selezionata" << endl;
                 break;
             case 9:
                 if(!lista.getCurrentListName().empty())
